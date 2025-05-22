@@ -12,16 +12,16 @@ public class SetCollection {
         hs.add("banana");
 
         // Passing HashLinkedSet to ArrayList for conversion 
-        // ArrayList<String> al = new ArrayList<>(hs);
+        ArrayList<String> al = new ArrayList<>(hs);
 
-        // System.out.println(al);
+        System.out.println(al);
         // Iterating collection object using foreach
-        // for(String item: hs){
-        //     System.out.println(item);
-        //     if (item.equals("apple")) {
-        //         System.out.println(true);
-        //     }
-        // }
+        for(String item: hs){
+            System.out.println(item);
+            if (item.equals("apple")) {
+                System.out.println(true);
+            }
+        }
 
         // Iterating collection object using Iterator object
         Iterator<String> i = hs.iterator();
