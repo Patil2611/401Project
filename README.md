@@ -1,2 +1,2 @@
 # 401Project
-Bhushan, Gaurav and Tejas Repo for practice purpose
+Bhushan, Gaurav, Nikhil and Tejas Repo for practice purpose
