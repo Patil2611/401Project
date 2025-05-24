@@ -1,0 +1,22 @@
+<html>
+  <head>
+    <title>example of setInterval function</title>
+	<script type='text/javascript'>
+	   function digiClock()
+	   {
+	     setInterval(function(){
+		    let d = new Date();
+			let time=d.toLocaleTimeString();
+			document.getElementById("s").innerHTML="Time: "+time  +"<br>"+ "Date: "+d.toLocaleDateString();
+          },1000);
+          console.log(new Date());	 
+	   }
+	    
+	</script>
+  </head>
+  <body>
+   <input type='button' name='s' value='Generate Alert Box' onclick='digiClock()'/>
+   <br><br>
+	<span id="s"></span>
+  </body>
+</html>
