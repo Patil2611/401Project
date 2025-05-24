@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-App<springcore>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.springcore.App",
+            "projectName": "springcore",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
