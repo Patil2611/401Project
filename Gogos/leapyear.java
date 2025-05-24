@@ -13,9 +13,9 @@ public class leapyear {
                 System.out.println(year +"Leap year");
             }else if(year % 400 == 0){
             System.out.println(year+"Leap year");
-        }else{
+        }
+    }else{
             System.out.println("This is not leap year");
         }
-    }
 }
 }
