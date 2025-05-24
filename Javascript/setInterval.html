@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<head>
+    <title>
+        setInterval function
+    </title>
+    <script>
+        let result;
+        function genAlert(){
+            result = setInterval(show,5000);
+        }
+        function show(){
+            alert("i am alert box")
+        }
+        function stop(){
+            clearInterval(result);
+        }
+    </script>
+</head>
+<body>
+    <input type="button" name ='s'value="Generate Alert Box" onclick="genAlert()">
+    <br><br>
+    <input type="button" name ='s' value="Stop Alerting" onclick="stop()">
+</body>
+</html>
