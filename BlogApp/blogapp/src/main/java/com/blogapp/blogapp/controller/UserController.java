@@ -1,5 +1,7 @@
 package com.blogapp.blogapp.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -48,5 +50,11 @@ public class UserController {
     public ResponseEntity<ApiResponse> deleteUser(@PathVariable Integer id){
         this.userService.deleteUser(id);
         return new ResponseEntity<>(new ApiResponse("User Deleted Successfully", true, null), HttpStatus.OK);
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<ApiResponse> getAllUsers(){
+        List<UserDto> list = this.userService.getAllUsers();
+        return new ResponseEntity<>(new ApiResponse("Users Retrieved Successfully", true, list), HttpStatus.OK);
     }
 }

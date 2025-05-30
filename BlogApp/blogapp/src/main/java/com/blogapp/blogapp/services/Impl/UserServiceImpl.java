@@ -3,6 +3,7 @@ package com.blogapp.blogapp.services.Impl;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,8 @@ public class UserServiceImpl implements UserService{
     @Autowired
     private UserRepo userRepo;
     
+    @Autowired
+    private ModelMapper modelMapper;
 
     @Override
     public UserDto createUser(UserDto dto) {
@@ -65,24 +68,28 @@ public class UserServiceImpl implements UserService{
     }
 
     public UserDto userToDto(User user){
-        UserDto userDto = new UserDto();
-        userDto.setId(user.getId());
-        userDto.setName(user.getName());
-        userDto.setEmail(user.getEmail());
-        userDto.setPassword(user.getPassword());
-        userDto.setAbout(user.getAbout());
-        userDto.setAddress(user.getAddress());
+        // UserDto userDto = new UserDto();
+        UserDto userDto = this.modelMapper.map(user, UserDto.class);
+        // userDto.setId(user.getId());
+        // userDto.setName(user.getName());
+        // userDto.setEmail(user.getEmail());
+        // userDto.setPassword(user.getPassword());
+        // userDto.setAbout(user.getAbout());
+        // userDto.setAddress(user.getAddress());
         return userDto;
     }
 
     public User dtoToUser(UserDto dto){
-        User user = new User();
-        user.setId(dto.getId());
-        user.setName(dto.getName());
-        user.setEmail(dto.getEmail());
-        user.setPassword(dto.getPassword());
-        user.setAbout(dto.getAbout());
-        user.setAddress(dto.getAddress());
+        // User user = new User();
+
+        User user = this.modelMapper.map(dto, User.class);
+
+        // user.setId(dto.getId());
+        // user.setName(dto.getName());
+        // user.setEmail(dto.getEmail());
+        // user.setPassword(dto.getPassword());
+        // user.setAbout(dto.getAbout());
+        // user.setAddress(dto.getAddress());
         return user;
     }
     
