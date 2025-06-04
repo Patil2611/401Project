@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -19,6 +20,8 @@ import com.blogapp.blogapp.payloads.ApiResponse;
 import com.blogapp.blogapp.payloads.UserDto;
 import com.blogapp.blogapp.services.UserService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
@@ -27,7 +30,7 @@ public class UserController {
 
     // Post create user
     @PostMapping("/create")
-    public ResponseEntity<ApiResponse> createUser(@RequestBody UserDto user) {
+    public ResponseEntity<ApiResponse> createUser(@Valid @RequestBody UserDto user) {
         UserDto dto = this.userService.createUser(user);
         return new ResponseEntity<> (new ApiResponse("User created successfully", true, dto), HttpStatus.CREATED);
     }
@@ -41,9 +44,16 @@ public class UserController {
 
     // Put/Update user
     @PutMapping("/update/{id}")
-    public ResponseEntity<ApiResponse> updateUser(@RequestBody UserDto userDto, @PathVariable Integer id) {
+    public ResponseEntity<ApiResponse> updateUser(@Valid @RequestBody UserDto userDto, @PathVariable Integer id) {
         UserDto dto = this.userService.updateUser(userDto, id);
         return new ResponseEntity<>(new ApiResponse("User Updated Successfully", true, dto), HttpStatus.OK);
+    }
+
+    // Path 
+    @PatchMapping("/patch/{id}")
+    public ResponseEntity<ApiResponse> patchUser(@Valid @RequestBody UserDto userdto, @PathVariable Integer id){
+        UserDto dto = this.userService.patchUser(userdto, id);
+        return new ResponseEntity<>(new ApiResponse("Success", true, dto), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")

@@ -59,6 +59,22 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    public UserDto patchUser(UserDto userDto, Integer id){
+        User user = userRepo.findById(id).orElseThrow(()-> new ResourceNotFoundException(null, null, userDto));
+
+        if (userDto.getName() != null) {
+            user.setName(userDto.getName());
+        }
+
+        if (userDto.getEmail() != null) {
+            user.setEmail(userDto.getEmail());
+        }
+        
+        this.updateUser(userDto, id);
+        return userToDto(user);
+    }
+
+    @Override
     public List<UserDto> getAllUsers() {
         //  Auto-generated method stub
         

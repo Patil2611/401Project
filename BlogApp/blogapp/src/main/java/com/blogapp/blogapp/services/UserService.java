@@ -10,6 +10,7 @@ public interface UserService {
     UserDto updateUser(UserDto user, Integer id);
     void deleteUser(Integer id);
     UserDto getUserById(Integer id);
+    UserDto patchUser(UserDto user, Integer id);
     List<UserDto> getAllUsers();
 
 }
