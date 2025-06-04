@@ -10,7 +10,7 @@ public class cons {
       cons obj1=new cons("nikhil",101);
       cons obj2=new cons("appu",123);
       System.out.println("emp1: "+obj1.name+", "+obj1.age);
-      System.out.println("emp2: "+obj2.name+", "+obj2.age);
+      System.out.println("emp2: "+obj2.name+", "+ obj2.age);
     
     }
 }
