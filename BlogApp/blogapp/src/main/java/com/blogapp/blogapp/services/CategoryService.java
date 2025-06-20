@@ -9,6 +9,6 @@ public interface CategoryService {
     CategoryDto updateCategory(CategoryDto categoryDto, Integer id);
     void deleteCategory(Integer id);
     CategoryDto patchCategory(CategoryDto categoryDto, Integer id);
-    List<CategoryDto> getAllCategories();
+    List<CategoryDto> getAllCategories(Integer pageNumber, Integer pageSize);
     CategoryDto getCategoryById(Integer id);
 }

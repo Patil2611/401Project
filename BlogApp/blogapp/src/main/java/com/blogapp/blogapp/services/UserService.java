@@ -11,6 +11,6 @@ public interface UserService {
     void deleteUser(Integer id);
     UserDto getUserById(Integer id);
     UserDto patchUser(UserDto user, Integer id);
-    List<UserDto> getAllUsers();
+    List<UserDto> getAllUsers(Integer pageNumber, Integer pageSize);
 
 }

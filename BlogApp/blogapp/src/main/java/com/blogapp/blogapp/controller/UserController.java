@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.blogapp.blogapp.payloads.ApiResponse;
@@ -63,8 +64,11 @@ public class UserController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<ApiResponse> getAllUsers(){
-        List<UserDto> list = this.userService.getAllUsers();
+    public ResponseEntity<ApiResponse> getAllUsers(
+        @RequestParam(value = "pageNumber", defaultValue = "1", required = false) Integer pageNumber,
+        @RequestParam(value = "pageSize", defaultValue = "10", required = false) Integer pageSize
+    ){
+        List<UserDto> list = this.userService.getAllUsers(pageNumber, pageSize);
         return new ResponseEntity<>(new ApiResponse("Users Retrieved Successfully", true, list), HttpStatus.OK);
     }
 }

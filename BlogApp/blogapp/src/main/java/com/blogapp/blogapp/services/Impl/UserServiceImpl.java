@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.blogapp.blogapp.entities.User;
@@ -75,10 +76,10 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public List<UserDto> getAllUsers() {
+    public List<UserDto> getAllUsers(Integer pageNumber, Integer pageSize) {
         //  Auto-generated method stub
         
-        List<User> users = this.userRepo.findAll();
+        List<User> users = this.userRepo.findAll(PageRequest.of(pageNumber, pageSize)).toList();
         List<UserDto> dtoList = users.stream().map(user -> this.userToDto(user)).collect(Collectors.toList());
         return dtoList;
     }
