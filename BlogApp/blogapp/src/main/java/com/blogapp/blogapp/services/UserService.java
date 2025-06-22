@@ -10,7 +10,8 @@ public interface UserService {
     UserDto updateUser(UserDto user, Integer id);
     void deleteUser(Integer id);
     UserDto getUserById(Integer id);
+    UserDto getUserByEmail(String email);
     UserDto patchUser(UserDto user, Integer id);
     List<UserDto> getAllUsers(Integer pageNumber, Integer pageSize);
-
+    boolean isUserAndPasswordCorrect(String username, String password);
 }

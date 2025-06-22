@@ -1,11 +1,13 @@
 package com.blogapp.blogapp.services.Impl;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.blogapp.blogapp.entities.User;
@@ -22,10 +24,18 @@ public class UserServiceImpl implements UserService{
     @Autowired
     private ModelMapper modelMapper;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Override
     public UserDto createUser(UserDto dto) {
         //  Auto-generated method stub
 
+        if (userRepo.existsByEmail(dto.getEmail())) {
+            throw new ResourceNotFoundException("Email already exists", "Email", dto.getEmail());
+        }
+
+        dto.setPassword(passwordEncoder.encode(dto.getPassword()));
         User user = dtoToUser(dto);
         User savedUser = this.userRepo.save(user);
         return this.userToDto(savedUser);
@@ -56,6 +66,13 @@ public class UserServiceImpl implements UserService{
         //  Auto-generated method stub
         
         User user = this.userRepo.findById(id).orElseThrow(()-> new ResourceNotFoundException("User", " id ", id));
+        return this.userToDto(user);
+    }
+
+    @Override
+    public UserDto getUserByEmail(String email) {
+        //  Auto-generated method stub
+        User user = this.userRepo.findByEmail(email).orElseThrow(()-> new ResourceNotFoundException("User", " id ", email));
         return this.userToDto(user);
     }
 
@@ -108,6 +125,17 @@ public class UserServiceImpl implements UserService{
         // user.setAbout(dto.getAbout());
         // user.setAddress(dto.getAddress());
         return user;
+    }
+
+    @Override
+    public boolean isUserAndPasswordCorrect(String username, String password) {
+        Optional<User> op = userRepo.findByEmail(username);
+
+        if (op.isPresent()) {
+            User user = op.get();
+            return passwordEncoder.matches(password, user.getPassword());
+        }
+        return false;
     }
     
 }

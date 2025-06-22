@@ -1,6 +1,8 @@
 package com.blogapp.blogapp.payloads;
 
 import java.util.Date;
+import java.util.List;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,5 +18,6 @@ public class PostDto {
     private String image = "default.png";
     private UserDto user;
     private CategoryDto category;
+    private List<CommentDto> comments;
 
 }

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.blogapp.blogapp.payloads.ApiResponse;
 import com.blogapp.blogapp.payloads.PostDto;
+import com.blogapp.blogapp.payloads.PostResponse;
 import com.blogapp.blogapp.services.PostService;
 
 @RestController
@@ -36,9 +37,11 @@ public class PostController {
     public ResponseEntity<ApiResponse> getPostByUserId(
         @PathVariable Integer userId,
         @RequestParam(value = "pageNumber", defaultValue = "1", required = false) Integer pageNumber,
-        @RequestParam(value = "pageSize", defaultValue = "10", required = false) Integer pageSize
+        @RequestParam(value = "pageSize", defaultValue = "10", required = false) Integer pageSize,
+        @RequestParam(value = "sortBy", defaultValue = "postId", required = false) String sortBy,
+        @RequestParam(value = "sortDir", defaultValue = "asc", required = false) String sortDir
         ) {
-        List<PostDto> posts = postService.getPostByUser(userId, pageNumber, pageSize);
+        List<PostDto> posts = postService.getPostByUser(userId, pageNumber, pageSize, sortBy, sortDir);
         return new ResponseEntity<>(new ApiResponse("Data fetch successfully", true, posts), HttpStatus.OK);
     }
 
@@ -46,9 +49,11 @@ public class PostController {
     public ResponseEntity<ApiResponse> getPostByCategoryId(
         @PathVariable Integer categoryId,
         @RequestParam (value = "pageNumber", defaultValue = "1", required = false) Integer pageNumber,
-        @RequestParam (value = "pageSize", defaultValue = "10", required = false) Integer pageSize
+        @RequestParam (value = "pageSize", defaultValue = "10", required = false) Integer pageSize,
+        @RequestParam(value = "sortBy", defaultValue = "postId", required = false) String sortBy,
+        @RequestParam(value = "sortDir", defaultValue = "asc", required = false) String sortDir
         ) {
-        List<PostDto> posts = postService.getPostByCategory(categoryId, pageNumber, pageSize);
+        PostResponse posts = postService.getPostByCategory(categoryId, pageNumber, pageSize, sortBy, sortDir);
         return new ResponseEntity<>(new ApiResponse("Data fetch successfully", true, posts), HttpStatus.OK);
     }
 
@@ -56,19 +61,24 @@ public class PostController {
     public ResponseEntity<ApiResponse> getSearchPost(
         @PathVariable String searchValue,
         @RequestParam(value = "pageNumber", defaultValue = "1", required = false) Integer pageNumber,
-        @RequestParam(value = "pageSize", defaultValue = "10", required = false) Integer pageSize
+        @RequestParam(value = "pageSize", defaultValue = "10", required = false) Integer pageSize,
+        @RequestParam(value = "sortBy", defaultValue = "postId", required = false) String sortBy,
+        @RequestParam(value = "sortDir", defaultValue = "asc", required = false) String sortDir
         ) {
-        List<PostDto> posts = postService.searchPost(searchValue, pageNumber, pageSize);
+        List<PostDto> posts = postService.searchPost(searchValue, pageNumber, pageSize, sortBy, sortDir);
         return new ResponseEntity<>(new ApiResponse("Date fetch successfully", true, posts), HttpStatus.OK);
     }
 
     @GetMapping("/all")
     public ResponseEntity<ApiResponse> getAllPosts(
         @RequestParam(value = "pageNumber", defaultValue = "1", required = false) Integer pageNumber,
-        @RequestParam(value = "pageSize", defaultValue = "10", required = false) Integer pageSize
+        @RequestParam(value = "pageSize", defaultValue = "10", required = false) Integer pageSize,
+        @RequestParam(value = "sortBy", defaultValue = "postId", required = false) String sortBy,
+        @RequestParam(value = "sortDir", defaultValue = "asc", required = false) String sortDir
     ){
-        List<PostDto> posts = postService.getAllPost(pageNumber, pageSize);
-        return new ResponseEntity<>(new ApiResponse("Post fetch successfully", true, posts), HttpStatus.OK);
+        PostResponse posts = postService.getAllPost(pageNumber, pageSize, sortBy, sortDir);
+        System.out.println(posts);
+        return new ResponseEntity<>(new ApiResponse("Data fetch successfully", true, posts), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{postId}")
