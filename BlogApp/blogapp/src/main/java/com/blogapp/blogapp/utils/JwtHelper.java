@@ -20,6 +20,7 @@ public class JwtHelper {
     //  private static final SecretKey SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256); // Secure random 256-bit key
 
     public String generateToken(String username) {
+
         return Jwts.builder()
                 .setSubject(username)
                 .signWith(SECRET_KEY)
@@ -27,12 +28,16 @@ public class JwtHelper {
     }
 
     public String extractUsername(String token) {
-        return Jwts.parserBuilder()
+        try {
+            return Jwts.parserBuilder()
             .setSigningKey(SECRET_KEY)
             .build()
             .parseClaimsJws(token)
             .getBody()
             .getSubject();
+        } catch (Exception e) {
+            throw new InvalidTokenException("Invalid token");
+        }
     }
 
     public boolean validateToken(String token) {

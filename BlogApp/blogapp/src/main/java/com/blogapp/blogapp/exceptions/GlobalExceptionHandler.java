@@ -51,4 +51,16 @@ public class GlobalExceptionHandler {
         ApiResponse apiResponse = new ApiResponse(ex.getMessage(), false, "Invalid token");
         return new ResponseEntity<>(apiResponse, HttpStatus.UNAUTHORIZED);
     }
+
+    @ExceptionHandler(io.jsonwebtoken.security.SignatureException.class)
+     public ResponseEntity<ApiResponse> invalidTokenException(io.jsonwebtoken.security.SignatureException ex){
+        ApiResponse apiResponse = new ApiResponse(ex.getMessage(), false, "Invalid token");
+        return new ResponseEntity<>(apiResponse, HttpStatus.UNAUTHORIZED);
+    }
+
+     // Optional: handle other exceptions
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<String> handleGeneric(Exception ex) {
+        return new ResponseEntity<>("Something went wrong: " + ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 }
