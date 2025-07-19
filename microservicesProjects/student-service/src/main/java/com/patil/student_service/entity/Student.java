@@ -20,6 +20,6 @@ public class Student {
     @Column(nullable = false)
     private String password;
 
-//    private String course;
+    private Integer courseId;
 
 }

@@ -20,12 +20,12 @@ public class StudentController {
     }
 
     @PostMapping
-    public Student createStudent(@RequestBody StudentDto student) throws JsonProcessingException {
+    public StudentDto createStudent(@RequestBody Student student) throws JsonProcessingException {
         return studentService.saveStudent(student);
     }
 
     @GetMapping
-    public List<Student> getAll() {
+    public List<StudentDto> getAll() {
         return studentService.getAllStudents();
     }
 }
